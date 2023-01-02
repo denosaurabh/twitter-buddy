@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+  <body class="w-80 bg-slate-50">
+    <div id="app" class="grid place-items-center py-10 px-7">
+      <img src="/laugh.svg" class="w-14 h-14" alt="Vite logo" />
+      <h1 class="text-2xl">Twitter Buddy</h1>
+
+      <div id="key_needed" class="flex flex-col mt-6 mb-5 gap-3">
+        <p class="text-slate-700">
+          To get started, enter your
+          <a
+            target="_blank"
+            href="https://beta.openai.com/account/api-keys"
+            class="text-blue-500"
+          >
+            Buddy API Key</a
+          >
+          or
+          <a
+            target="_blank"
+            href="https://beta.openai.com/account/api-keys"
+            class="text-blue-500"
+          >
+            OpenAI API Key</a
+          >
+        </p>
+
+        <input
+          id="key_input"
+          placeholder="Buddy or OpenAI API Key"
+          class="border rounded-md h-8 px-2"
+        />
+        <button
+          id="save_key_button"
+          class="bg-slate-200 h-8 px-4 rounded-lg ease-in-out hover:bg-slate-300"
+        >
+          Add API key
+        </button>
+      </div>
+
+      <div id="key_entered" class="flex flex-col mt-6 mb-5 gap-3">
+        <p>You have <b>already</b> entered your OpenAI API Key.</p>
+        <button
+          id="change_key_button"
+          class="bg-slate-200 h-8 px-4 rounded-lg ease-in-out hover:bg-slate-300"
+        >
+          Change key
+        </button>
+        <button
+          id="remove_key_button"
+          class="bg-red-200 text-red-900 h-8 px-4 rounded-lg ease-in-out hover:bg-red-300"
+        >
+          Remove key
+        </button>
+      </div>
+
+      <hr class="w-full border-b border-slate-200" />
+
+      <div class="flex flex-col mt-6 mb-5 gap-3 w-full" id="change_prompt_box">
+        <p class="text-slate-700">Add Custom Prompt</p>
+
+        <textarea
+          id="custom_prompt_textarea"
+          class="w-full min-h-fit h-28 bg-slate-200 p-2 rounded-md"
+        ></textarea>
+        <span class="text-slate-600 text-xs font-bold"
+          >This is only a Prefix to the Prompt, the tweet will be automatically
+          added at the end when you click the icon on the bottom-right on every
+          tweet!</span
+        >
+
+        <button
+          id="save_prompt_button"
+          class="bg-green-200 text-teal-900 w-full h-8 px-4 rounded-lg ease-in-out hover:bg-teal-300"
+        >
+          Save Custom Prompt
+        </button>
+        <button
+          id="reset_prompt_button"
+          class="bg-transparent text-slate-700 w-full h-8 px-4 rounded-lg ease-in-out hover:text-slate-900"
+        >
+          Reset Prompt
+        </button>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/prompt.ts"></script>
+  </body>
+</html>
