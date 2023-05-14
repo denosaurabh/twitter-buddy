@@ -18,14 +18,20 @@ const saveKey = () => {
   if (input) {
     const { value } = input as HTMLInputElement;
 
-    // Encode String
-    const encodedValue = encode(value);
+    if (value) {
+      // Encode String
+      const encodedValue = encode(value);
 
-    // Save to google storage
-    Storage.set(STORAGE__OPEN_AI_KEY, encodedValue).then(() => {
-      keyNeededBox?.style.setProperty("display", "none");
-      keyEnteredBox?.style.setProperty("display", "flex");
-    });
+      // Save to google storage
+      Storage.set(STORAGE__OPEN_AI_KEY, encodedValue).then(() => {
+        keyNeededBox?.style.setProperty("display", "none");
+        keyEnteredBox?.style.setProperty("display", "flex");
+      });
+
+      input.style.border = "1px solid green";
+    } else {
+      input.style.border = "1px solid red";
+    }
   }
 };
 

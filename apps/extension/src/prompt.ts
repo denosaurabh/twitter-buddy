@@ -27,15 +27,15 @@ savePromptButton?.addEventListener("click", async () => {
 
   if (customPromptValue) {
     await Storage.set(STORAGE__CUSTOM_PROMPT_TEXT, customPromptValue);
-
-    savePromptButton.textContent = "Saved :)";
-
-    setTimeout(() => {
-      savePromptButton.textContent = "Save Custom Prompt";
-    }, 5000);
   } else {
-    console.log("please enter Custom Prompt on textarea");
+    await Storage.set(STORAGE__CUSTOM_PROMPT_TEXT, "");
   }
+
+  savePromptButton.textContent = "Saved :)";
+
+  setTimeout(() => {
+    savePromptButton.textContent = "Save Custom Prompt";
+  }, 5000);
 });
 
 /* ********** ON RESET CUSTOM PROMPT CLICK *********** */

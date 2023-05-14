@@ -10,7 +10,12 @@ const getKey = async (): Promise<string> => {
   const values = await Storage.get([STORAGE__OPEN_AI_KEY]);
 
   if (values[STORAGE__OPEN_AI_KEY]) {
-    const decodedKey = atob(values[STORAGE__OPEN_AI_KEY]);
+    // const decodedKey = atob(values[STORAGE__OPEN_AI_KEY]);
+    const decodedKey = Buffer.from(
+      values[STORAGE__OPEN_AI_KEY],
+      "base64"
+    ).toString();
+
     return decodedKey;
   }
 
