@@ -2,26 +2,32 @@ import { DEFAULT_PROMPT_TEXT, STORAGE, Storage } from './storage'
 
 // Function to get + decode API key
 const getKey = async (): Promise<string> => {
-  const values = await Storage.get([STORAGE.id])
+  try {
+    const storageObj = await Storage.get([STORAGE.id])
+    console.log('storageObj', storageObj)
 
-  if (values[STORAGE.KEYS.OPENAI_KEY]) {
-    // const decodedKey = atob(values[STORAGE__OPEN_AI_KEY]);
-    const decodedKey = Buffer.from(values[STORAGE.KEYS.OPENAI_KEY], 'base64').toString()
+    const values = storageObj[STORAGE.id]
 
-    return decodedKey
+    // const decodedKey = values[STORAGE.KEYS.OPENAI_KEY])
+    // const decodedKeyBuff = Buffer.from(values[STORAGE.KEYS.OPENAI_KEY], 'base64').toString()
+
+    console.log(values)
+
+    return values[STORAGE.KEYS.OPENAI_KEY] || ''
+  } catch (err) {
+    console.log('caught error while fetching storage', err)
+    return ''
   }
-
-  return ''
 }
 
-const generate = async (prompt: string) => {
+const generate = async (prompt: string): Promise<{ text: string }> => {
   console.log('request received! fetching GPT-3 API key from storage..')
 
   // Get your API key from storage
   const key = await getKey()
   const url = 'https://api.openai.com/v1/completions'
 
-  console.log('fetched key! sending request to GPT-3 API...')
+  console.log(key, 'fetched key! sending request to GPT-3 API...')
 
   // Call completions endpoint
   const completionResponse = await fetch(url, {
@@ -40,6 +46,12 @@ const generate = async (prompt: string) => {
 
   // Select the top choice and send back
   const completion = await completionResponse.json()
+  console.log('completions', completion)
+
+  if (completion?.error?.message) {
+    return { text: `{${completion.error.message}}` }
+  }
+
   return completion.choices.pop()
 }
 
@@ -51,7 +63,9 @@ export const generateCompletionAction = async (promptText: string) => {
 
   let basePromptPrefix = DEFAULT_PROMPT_TEXT
 
-  const values = await Storage.get([STORAGE.id])
+  const storageObj = await Storage.get([STORAGE.id])
+  const values = storageObj[STORAGE.id]
+
   if (values[STORAGE.KEYS.PROMPT_TEXT]) {
     basePromptPrefix = values[STORAGE.KEYS.PROMPT_TEXT]
   }

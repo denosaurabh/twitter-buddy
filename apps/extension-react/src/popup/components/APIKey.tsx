@@ -1,4 +1,4 @@
-import { useSettingsStore } from '../../utils/storage'
+import { useSettingsStore } from '../../utils/use-storage'
 
 const formInputs = {
   KEY_INPUT: 'key_input',

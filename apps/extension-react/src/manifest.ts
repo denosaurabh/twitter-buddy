@@ -56,10 +56,7 @@ export default defineManifest({
   content_scripts: [
     {
       matches: ['https://twitter.com/*'],
-      js: [
-        'src/content/index.ts',
-        // 'src/api.ts', 'src/twitter.ts'
-      ],
+      js: ['src/content/index.ts', 'src/utils/api.ts', 'src/utils/storage.ts'],
     },
   ],
   permissions: ['contextMenus', 'tabs', 'storage', 'scripting', 'activeTab', 'notifications'],

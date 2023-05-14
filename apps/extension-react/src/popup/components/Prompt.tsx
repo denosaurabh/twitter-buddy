@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { DEFAULT_PROMPT_TEXT, useSettingsStore } from '../../utils/storage'
+import { useSettingsStore } from '../../utils/use-storage'
+import { DEFAULT_PROMPT_TEXT } from '../../utils/storage'
 
 export const Prompt = () => {
   const [settings, setSettings] = useSettingsStore()
